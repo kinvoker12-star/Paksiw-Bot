@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@jmrna6+f=8@hmuon&$(o^_=gefi0%2+b8bd8%^0l#6ku6ec5h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app', 'paksiw-bot.vercel.app']
 
 
 # Application definition
@@ -93,12 +93,6 @@ DATABASES = {
     )
 }
 
-if os.environ.get("DATABASE_URL"):
-    DATABASES["default"] = dj_database_url.config(
-        conn_max_age=600,
-    )
-
-
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -135,6 +129,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
