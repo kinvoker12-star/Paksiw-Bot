@@ -1,0 +1,32 @@
+<div id="chat-window" style="border:1px solid #ccc; height:300px; overflow-y:scroll; padding:10px;">
+    <p><b>Paksiw:</b> Hi, I'm Paksiw ge himo ko para makalingaw ka ug maka remind sa imoha sa schedule!, NOTE: daghan pa kaayo
+    kog kuwang and dili pa ma save ang atoang chat so if mag refresh ka dili ta maka continue sa atoang conversation and I have a lot to learn pa 
+so my response is prettyl limited.</p>
+</div>
+<input type="text" id="user-msg">
+<button onclick="sendMessage()">Send</button>
+
+<script>
+function sendMessage() {
+    let msg = document.getElementById('user-msg').value;
+    let window = document.getElementById('chat-window');
+    
+    // Add User Message to UI
+    window.innerHTML += `<p><b>You:</b> ${msg}</p>`;
+
+    // Send to Django (Using Fetch API)
+fetch('/chat-api/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}' // Django needs this for security!
+        },
+        body: JSON.stringify({ message: msg })
+    })
+    .then(res => res.json())
+    .then(data => {
+        window.innerHTML += `<p style="color:red"><b>Paksiw:</b> ${data.reply}</p>`;
+        document.getElementById('user-msg').value = '';
+    });
+}
+</script>
