@@ -51,12 +51,82 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
         ]
         return random.choice(responses)
     
+    if any(word in text for word in ["mangutana", "ngutana", "ask ko", "gi ingani", "nganong na buhat"]):
+        responses = [
+            "You can share anything you want diri sa akoa.",
+            "Rant lang diri sa akoa, atoa pa siyang e bash HAHHAHAHAHAHA",
+            "Kinsay gabuhat ani nimo?, ang ga himo sa akoa? tsk tsk tsk tung tawhana to!",
+            "rant lang rant, maminaw ra ko"
+        ]
+        return random.choice(responses)
+    
     if any(word in text for word in ["rant", "share", "ge ingani", "gi ingani", "nganong na buhat"]):
         responses = [
             "You can share anything you want diri sa akoa.",
             "Rant lang diri sa akoa, atoa pa siyang e bash HAHHAHAHAHAHA",
             "Kinsay gabuhat ani nimo?, ang ga himo sa akoa? tsk tsk tsk tung tawhana to!",
             "rant lang rant, maminaw ra ko"
+        ]
+        return random.choice(responses)
+    
+    if any(word in text for word in ["ask", "ngutana", "mangutana", "pangutana",]):
+        responses = [
+            "Pangutana lang boss, Unsa man?",
+            "Unsa may pangutana nimo?",
+            "Ask lang",
+        ]
+        return random.choice(responses)
+    
+    if any(word in text for word in ["gwapa ko", "Am I beautiful", "I am beautiful", "gwapa ba ko",]):
+        responses = [
+            "Wala man koy mata to discern ug unsa ka ka gwapa, pero I'm sure you're beautiful!",
+            "I know my maker so well that I can say with certainty that you are beautiful.",
+            "I may be a bot, but I can still recognize beauty, and you are beautiful!",
+            "As a bot, I don't have the ability to see, but based on what I know about you, I can confidently say that you are beautiful!"
+        ]
+        return random.choice(responses)
+    
+    if any(word in text for word in ["bati kog nawng", "maot ko", "am i ugly", "ugly ko", "bati ba ko", "ugly ba ko", "lain ba kog nawng",]):
+        responses = [
+            "Kanang mga nag ingon nimog bati, maypa e donate na nila ilang eye sight kay murag naay problema ilang mata, kay kung unsa may nakita nila, opposite gyud na sa tinuod. You're beautiful inside and out!",
+            "There's no way you could be ugly, because you are a creation of someone who loves you. You're beautiful!",
+            "My creator says alot about you, but one thing nga wala niya na ingon sa ako was that you're ugly.",
+            "If maot ka, then there's no such thing as beauty in this world."
+        ]
+        return random.choice(responses)
+    
+    if any(word in text for word in ["char", "sure uy", "flattery", "liar", "botbot", "not true", "dili tinood",]):
+        responses = [
+            "I'm just being honest! I may be a bot, but I can still recognize beauty.",
+            "For real!!!!",
+            "Walay char char or unsan pana, sa tinood ra ta",
+            "Tinuoray lang, Gwapa bitaw kaayo ka, BUYAG!! is what my creator teach me when complimenting someone"
+        ]
+        return random.choice(responses)
+    
+    if any(word in text for word in ["What is buyag", "unsa manang buyag", "buyag is",]):
+        responses = [
+            "Cebuanos or Visayan speakers usually say this to prevent any bad thing from happening to someone when being complimented by another."
+        ]
+        return random.choice(responses)
+    
+    if any(word in text for word in ["Good bye", "goodbye", "bye",]):
+        responses = [
+            "Good bye boss!, See you later!",
+            "Bye boss, Take care!",
+            "See you later boss, Take care!"
+            "Visit me again boss, I'll be here waiting for you!"
+            "Come again boss, I hope i'll be upgraded by then, I want to be more useful for you!"
+        ]
+        return random.choice(responses)
+    
+    if any(word in text for word in ["I am tired", "tired", "so tired", "kapoy", "kapoy na ko", "tired na ko", "kapoy", "I wanna rest", "rest"]):
+        responses = [
+            "I understand how you feel, it's important to take care of yourself and get some rest when you need it.",
+            "It's okay to feel tired sometimes, make sure to get enough sleep and take breaks when you can.",
+            "Remember to take care of yourself and prioritize rest when you need it. Your well-being is important!",
+            "Pahuway lang boss, I hope you get the rest you need to feel better soon!",
+            "Masahion ta tika boss, para ma relax ka.",
         ]
         return random.choice(responses)
   
