@@ -16,5 +16,5 @@
       "dest": "paksiw_site/wsgi.py"
     }
   ],
-  "installCommand": "bash build_files.sh"
+  "installCommand": "bash build.sh"
 }
