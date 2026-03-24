@@ -7,10 +7,9 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
     text = text.lower()
 
     # 1. KEYWORD: Greetings (Multiple Responses)
-    if any(word in text for word in ["hello", "hi", "wassup", "hoy", "kamusta"]):
+    if any(word in text for word in ["hello", "hi", "wassup", "kamusta"]):
         responses = [
             "Sup! Paksiw here. Unsay ayo?",
-            "Hoy sad! Unsay plano nato karon?",
             "Beep boop! Ready na ko mo remind nimo.",
             "O, kumusta man ka human?"
         ]
