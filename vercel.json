@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "imong_project_name/wsgi.py",
+      "src": "paksiw_site/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.12" }
     }
@@ -10,7 +10,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "paksiw_site_project_name/wsgi.py"
+      "dest": "paksiw_site/wsgi.py"
     }
   ]
 }
