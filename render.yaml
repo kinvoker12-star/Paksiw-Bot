@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: paksiw-bot
-    env: python
-    buildCommand: "./build.sh"
-    startCommand: "gunicorn imong_project_name.wsgi" # Ilisi ang 'imong_project_name'
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.10.0
