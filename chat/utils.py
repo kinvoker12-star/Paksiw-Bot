@@ -90,7 +90,7 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
         ]
         return random.choice(responses)
 
-    if "DIonise" in text:
+    if "dionise" in text:
         responses = [
             "is Stupid",
             "A word for stupid",
