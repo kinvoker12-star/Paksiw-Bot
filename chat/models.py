@@ -2,12 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class WordPair(models.Model):
-    first_word = models.CharField(max_length=100)
-    second_word = models.CharField(max_length=100)
+    first_word = models.CharField(max_length=100, db_index=True)
+    second_word = models.CharField(max_length=100, db_index=True)
     frequency = models.IntegerField(default=1)
+    third_word = models.CharField(max_length=100)
+    
 
     def __str__(self):
-        return f"{self.first_word} -> {self.second_word}"
+        return f"{self.first_word} {self.second_word} -> {self.third_word}"
 
 class DailyTask(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

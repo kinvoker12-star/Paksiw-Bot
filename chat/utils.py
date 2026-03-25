@@ -4,54 +4,62 @@ from .models import Knowledge, WordPair
 
 def learn_from_text(text):
     # Clean the text and split into words
-    words = text.lower().split()
-    if len(words) < 2:
+    words = re.findall(r'\b\w+\b', text.lower())  # Better word split
+    if len(words) < 3:
         return
 
-    for i in range(len(words) - 1):
+    for i in range(len(words) - 2):
         w1 = words[i]
         w2 = words[i+1]
+        w3 = words[i+2]
         
-        # Save the connection to Neon
-        pair, created = WordPair.objects.get_or_create(first_word=w1, second_word=w2)
-        if not created:
-            pair.frequency += 1
-            pair.save()
-
-import random
-from .models import WordPair
+        # Save trigram: w1 w2 -> w3
+        pair, created = WordPair.objects.get_or_create(
+            first_word=w1, 
+            second_word=w2
+        )
+        if created:
+            pair.third_word = w3
+        pair.frequency += 1
+        pair.save()
 
 def generate_markov_response(seed_text):
-    words = seed_text.lower().split()
+    words = re.findall(r'\b\w+\b', seed_text.lower())
     if not words:
-        return "I'm listening. Tell me more!"
+        return "Unsay pasabot nimo boss?"
         
-    # Start with a random word from the user's input
-    current_word = random.choice(words)
-    sentence = [current_word.capitalize()]
+    # Start with last 2 words from seed or random pair
+    if len(words) >= 2:
+        current_w1, current_w2 = words[-2], words[-1]
+    else:
+        # Fallback to any pair
+        pair = WordPair.objects.first()
+        if not pair:
+            return "Wala pa koy enough training data. Chat more!"
+        current_w1, current_w2 = pair.first_word, pair.second_word
+        
+    sentence = [current_w1.capitalize(), current_w2]
 
-    for _ in range(12): # Max sentence length
-        options = WordPair.objects.filter(first_word=current_word)
-        
+    # Generate chain
+    for _ in range(12):  # Longer sentences
+        options = WordPair.objects.filter(
+            first_word=current_w1,
+            second_word=current_w2
+        )
         if not options.exists():
             break
             
-        # --- THE "SANE" LOGIC ---
-        # 1. Get all possible next words and their frequencies
-        next_words = [p.second_word for p in options]
-        weights = [p.frequency for p in options]
+        next_pair = options.first()  # Most frequent implicit via last learned
+        next_word = next_pair.third_word
+        sentence.append(next_word)
         
-        # 2. Pick the next word based on probability (higher frequency = higher chance)
-        current_word = random.choices(next_words, weights=weights, k=1)[0]
-        # ------------------------
-
-        sentence.append(current_word)
+        # Shift window
+        current_w1, current_w2 = current_w2, next_word
         
-    return " ".join(sentence) + "."
+    return ' '.join(sentence) + '.'
 
 def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None for now
     text = text.lower()
-    
 
     if any(word in text for word in ["who made you", "who created you", "who is your creator"]):
         responses = [
@@ -69,12 +77,13 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "An AI chat bot that is incomplete and in a lot of development"
         ]
         return random.choice(responses)
-    
-    if any (word in text for word in ["purpose","gamit", "exist", " you made"]):
+
+    # 2. KEYWORD: Name / Identity
+    if any(word in text for word in ["ngalan", "name", "kinsa"]):
         responses = [
-            "Ang akoang purpose is ang maghatag sa imohag kalingawan ug mag remind sa imohang schedule!.",
-            "Ni exist si Paksiw for you!",
-            "I was made for you as Assistant!."
+            "Paksiw ang bangiitang irong buang!",
+            "Ako si Paksiw, imong personal assistant.",
+            "Secret! Joke, Paksiw ra bitaw ko."
         ]
         return random.choice(responses)
 
@@ -86,6 +95,7 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "Sorry boss, Wala pako ana na function."
         ]
         return random.choice(responses)
+
 
     if any(word in text for word in ["love me", "he love",]):
         responses = [
@@ -102,8 +112,8 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "I'm still on my early phase of development, but I'm learning and improving every day!",
             "I may not be the smartest bot out there, but I'm doing my best to be helpful and entertaining for you!",
             "I may be a bit slow, but I'm always here to listen and chat with you!",
-            "I am not the brightest bot out there."
-            "Yes, I know that TT."
+            "I am not the brightest bot out there.",
+            "Yes, I know that TT.",
             "But am I more dionise than my creator? That's a question for the ages!",
             "Yes, i'm so dionise TT.",
             "Yes yes yes, I'm dionise and raymond at the same time. I'm sorry TT.",
@@ -145,8 +155,8 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
         responses = [
             "Good bye boss!, See you later!",
             "Bye boss, Take care!",
-            "See you later boss, Take care!"
-            "Visit me again boss, I'll be here waiting for you!"
+            "See you later boss, Take care!",
+            "Visit me again boss, I'll be here waiting for you!",
             "Come again boss, I hope i'll be upgraded by then, I want to be more useful for you!"
         ]
         return random.choice(responses)
@@ -160,7 +170,6 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "Masahion ta tika boss, para ma relax ka.",
         ]
         return random.choice(responses)
-    
 
     # LEARNING MODE: "paksiw, learn [keyword] is [response]"
     learn_match = re.search(r"learn (.+) is (.+)", text)
