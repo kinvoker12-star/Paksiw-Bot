@@ -96,7 +96,7 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "A word for stupid",
             "That's the word for stupid!, I know that!",
         ]
-        return random.choic(responses)
+        return random.choice(responses)
     
     if any(word in text for word in ["mangutana", "ngutana", "ask ko", "gi ingani", "nganong na buhat"]):
         responses = [
