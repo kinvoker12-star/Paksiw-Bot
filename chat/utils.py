@@ -17,7 +17,7 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
 
     if any(word in text for word in ["unsa ka", "what are you", "bot ka", "ai ka"]):
         responses = [
-            "I am a cheap AI chat bot that was manually coded by the hands of ONI the not so great.?",
+            "I am a cheap AI chat bot that was manually coded by the hands of ONI the not so great.",
             "A cheap AI chat bot",
             "An AI chat bot that is incomplete and in a lot of development"
         ]
