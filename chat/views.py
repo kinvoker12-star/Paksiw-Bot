@@ -4,9 +4,21 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import ChatMessage
 from .utils import get_paksiw_response
+from models import WordPair
 
-def chat_home(request):
-    return render(request, 'chat/index.html')
+from .utils import learn_from_text, generate_markov_response
+
+def get_paksiw_response(text):
+    # 1. First, Paksiw listens and learns from the user
+    learn_from_text(text)
+    
+    # 2. Check for your "Hardcoded" rules first (Greetings, etc.)
+    if "kumusta" in text.lower():
+        return "O, kumusta man ka human?"
+
+    # 3. If no hardcoded rule, use the Markov Chain to "generate" a reply
+    reply = generate_markov_response(text)
+    return reply
 
 @csrf_exempt
 def paksiw_api(request):

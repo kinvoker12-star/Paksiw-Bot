@@ -2,6 +2,45 @@ import random
 import re
 from django.db import models
 from .models import Knowledge
+import random
+from .models import WordPair
+
+def learn_from_text(text):
+    # Clean the text and split into words
+    words = text.lower().split()
+    if len(words) < 2:
+        return
+
+    for i in range(len(words) - 1):
+        w1 = words[i]
+        w2 = words[i+1]
+        
+        # Save the connection to Neon
+        pair, created = WordPair.objects.get_or_create(first_word=w1, second_word=w2)
+        if not created:
+            pair.frequency += 1
+            pair.save()
+
+def generate_markov_response(seed_text):
+    words = seed_text.lower().split()
+    if not words:
+        return "Unsay pasabot nimo boss?"
+        
+    current_word = random.choice(words)
+    sentence = [current_word.capitalize()]
+
+    # Try to build a 10-word sentence
+    for _ in range(10):
+        options = WordPair.objects.filter(first_word=current_word)
+        if not options.exists():
+            break
+            
+        # Pick the next word based on what Paksiw has seen most often
+        next_pair = random.choice(options) 
+        current_word = next_pair.second_word
+        sentence.append(current_word)
+        
+    return " ".join(sentence) + "."
 
 def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None for now
     text = text.lower()
