@@ -1,12 +1,14 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 import json
+from django.views.decorators.csrf import csrf_exempt
 from .models import ChatMessage
 from .utils import get_paksiw_response
 
 def chat_home(request):
     return render(request, 'chat/index.html')
 
+@csrf_exempt
 def paksiw_api(request):
     if request.method == "POST":
         data = json.loads(request.body)
