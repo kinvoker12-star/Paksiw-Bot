@@ -14,6 +14,14 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "O, kumusta man ka human?"
         ]
         return random.choice(responses)
+
+    if any(word in text for word in ["sorry", "pasensiya",]):
+        responses = [
+            "I'm sorry, I didn't mean to hurt you.",
+            "I'm sorry for hurting you",
+        ]
+        return random.choice(responses)
+        
     
     if any(word in text for word in ["who made you", "who created you", "who is your creator"]):
         responses = [
@@ -76,8 +84,9 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "I may be a bit slow, but I'm always here to listen and chat with you!",
             "I am not the brightest bot out there."
             "Yes, I know that TT."
-            "But am I stupidier than my creator? That's a question for the ages!",
-            "But you said that Dionise is STUPID though!!"
+            "But am I more dionise than my creator? That's a question for the ages!",
+            "Yes, i'm so dionise TT.",
+            "Yes yes yes, I'm dionise and raymond at the same time. I'm sorry TT.",
         ]
         return random.choice(responses)
     
@@ -92,11 +101,19 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
 
     if "dionise" in text:
         responses = [
-            "is Stupid",
-            "A word for stupid",
+            "is Stupid.",
+            "A word for stupid.",
             "That's the word for stupid!, I know that!",
         ]
         return random.choice(responses)
+
+    if "raymond" in text:
+        responses = [
+            "is Dumb.",
+            "A word for dumb.",
+            "That's the word for dumb!, I know that one!",
+        ]
+        return random.choice(response)
     
     if any(word in text for word in ["mangutana", "ngutana", "ask ko", "gi ingani", "nganong na buhat"]):
         responses = [
