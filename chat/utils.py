@@ -107,6 +107,12 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
         ]
         return random.choice(responses)
 
+    if "good morning" in text:
+        responses = [
+            "Good morning!",
+        ]
+        return random.choice(responses)
+
     if "raymond" in text:
         responses = [
             "is Dumb.",
