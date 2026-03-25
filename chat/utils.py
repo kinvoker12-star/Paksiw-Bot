@@ -1,9 +1,6 @@
 import random
 import re
-from django.db import models
-from .models import Knowledge
-import random
-from .models import WordPair
+from .models import Knowledge, WordPair
 
 def learn_from_text(text):
     # Clean the text and split into words
@@ -81,11 +78,11 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
     
     if any (word in text for word in ["purpose","gamit", "exist", " you made"]):
         responses = [
-            "Ang akoang purpose is ang maghatag sa imohag kalingawan ug mag remind sa imohang schedule!."
-            "Ni exist si Paksiw for you!"
+            "Ang akoang purpose is ang maghatag sa imohag kalingawan ug mag remind sa imohang schedule!.",
+            "Ni exist si Paksiw for you!",
             "I was made for you as Assistant!."
         ]
-        return random.choices(responses)
+        return random.choice(responses)
 
     # 2. KEYWORD: Name / Identity
     if any(word in text for word in ["ngalan", "name", "kinsa"]):
@@ -158,7 +155,7 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "A word for dumb.",
             "That's the word for dumb!, I know that one!",
         ]
-        return random.choice(response)
+        return random.choice(responses)
     
     if any(word in text for word in ["mangutana", "ngutana", "ask ko", "gi ingani", "nganong na buhat"]):
         responses = [
@@ -263,5 +260,4 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
         except:
             pass
 
-    return "I don't know ug unsaon pag respond ana, I wasn't that high of a bot. " \
-    "I lack a lot but I can learn!. If you just copy exacly this, kani gyud na specific line hehe: 'learn [word] is [response]'."
+    return generate_markov_response(text)
