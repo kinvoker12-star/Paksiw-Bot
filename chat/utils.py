@@ -68,7 +68,7 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
         ]
         return random.choice(responses)
 
-    if any(word in text for word in ["Dumb", "Stupid", "idiot", "baka", "gago", "tanga","bogo"]):
+    if any(word in text for word in ["dumb", "stupid", "idiot", "baka", "gago", "tanga","bogo"]):
         responses = [
             "I'm sorry about that hehe.",
             "I'm still on my early phase of development, but I'm learning and improving every day!",
