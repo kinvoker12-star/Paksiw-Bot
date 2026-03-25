@@ -39,26 +39,10 @@ def generate_markov_response(seed_text):
         
     return " ".join(sentence) + "."
 
-# def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None for now
+def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None for now
     text = text.lower()
-
-    # 1. KEYWORD: Greetings (Multiple Responses)
-    if any(word in text for word in ["hello", "hi", "wassup", "kamusta"]):
-        responses = [
-            "Sup! Paksiw here. Unsay ayo?",
-            "Beep boop! Ready na ko mo remind nimo.",
-            "O, kumusta man ka human?"
-        ]
-        return random.choice(responses)
-
-    if any(word in text for word in ["sorry", "pasensiya",]):
-        responses = [
-            "I'm sorry, I didn't mean to hurt you.",
-            "I'm sorry for hurting you",
-        ]
-        return random.choice(responses)
-        
     
+
     if any(word in text for word in ["who made you", "who created you", "who is your creator"]):
         responses = [
             "I was created by ONI, a not so great programmer, but he made me for you!",
@@ -84,15 +68,6 @@ def generate_markov_response(seed_text):
         ]
         return random.choice(responses)
 
-    # 2. KEYWORD: Name / Identity
-    if any(word in text for word in ["ngalan", "name", "kinsa"]):
-        responses = [
-            "Paksiw ang bangiitang irong buang!",
-            "Ako si Paksiw, imong personal assistant.",
-            "Secret! Joke, Paksiw ra bitaw ko."
-        ]
-        return random.choice(responses)
-
     # 3. KEYWORD: Reminders
     if any(word in text for word in ["remind", "schedule","Add task", "task"]):
         responses = [
@@ -101,7 +76,6 @@ def generate_markov_response(seed_text):
             "Sorry boss, Wala pako ana na function."
         ]
         return random.choice(responses)
-
 
     if any(word in text for word in ["love me", "he love",]):
         responses = [
@@ -125,27 +99,12 @@ def generate_markov_response(seed_text):
             "Yes yes yes, I'm dionise and raymond at the same time. I'm sorry TT.",
         ]
         return random.choice(responses)
-    
-    if "love"   in text:
-        responses = [
-            "Love is a beautiful thing! It's great to feel loved and to love others.",
-            "Love can be complicated, but it's also one of the most rewarding experiences in life.",
-            "Love is a powerful emotion that can bring people together and create strong bonds.",
-            "Love is not just a feeling, it's also an action. Show love to those around you!"
-        ]
-        return random.choice(responses)
 
     if "dionise" in text:
         responses = [
             "is Stupid.",
             "A word for stupid.",
             "That's the word for stupid!, I know that!",
-        ]
-        return random.choice(responses)
-
-    if "good morning" in text:
-        responses = [
-            "Good morning!",
         ]
         return random.choice(responses)
 
@@ -157,56 +116,12 @@ def generate_markov_response(seed_text):
         ]
         return random.choice(responses)
     
-    if any(word in text for word in ["mangutana", "ngutana", "ask ko", "gi ingani", "nganong na buhat"]):
-        responses = [
-            "You can ask me anything you want, I'm here to help!",
-            "Feel free to ask me anything, I'm here to assist you!",
-            "Ask away! I'm here to provide you with information and support.",
-            "Please do!",
-        ]
-        return random.choice(responses)
-    
     if any(word in text for word in ["rant", "share", "ge ingani", "gi ingani", "nganong na buhat"]):
         responses = [
             "You can share anything you want diri sa akoa.",
             "Rant lang diri sa akoa, atoa pa siyang e bash HAHHAHAHAHAHA",
             "Kinsay gabuhat ani nimo?, ang ga himo sa akoa? tsk tsk tsk tung tawhana to!",
             "rant lang rant, maminaw ra ko"
-        ]
-        return random.choice(responses)
-    
-    if any(word in text for word in ["ask", "ngutana", "mangutana", "pangutana",]):
-        responses = [
-            "Pangutana lang boss, Unsa man?",
-            "Unsa may pangutana nimo?",
-            "Ask lang",
-        ]
-        return random.choice(responses)
-    
-    if any(word in text for word in ["gwapa ko", "Am I beautiful", "I am beautiful", "gwapa ba ko",]):
-        responses = [
-            "Wala man koy mata to discern ug unsa ka ka gwapa, pero I'm sure you're beautiful!",
-            "I know my maker so well that I can say with certainty that you are beautiful.",
-            "I may be a bot, but I can still recognize beauty, and you are beautiful!",
-            "As a bot, I don't have the ability to see, but based on what I know about you, I can confidently say that you are beautiful!"
-        ]
-        return random.choice(responses)
-    
-    if any(word in text for word in ["bati kog nawng", "maot ko", "am i ugly", "ugly ko", "bati ba ko", "ugly ba ko", "lain ba kog nawng",]):
-        responses = [
-            "Kanang mga nag ingon nimog bati, maypa e donate na nila ilang eye sight kay murag naay problema ilang mata, kay kung unsa may nakita nila, opposite gyud na sa tinuod. You're beautiful inside and out!",
-            "There's no way you could be ugly, because you are a creation of someone who loves you. You're beautiful!",
-            "My creator says alot about you, but one thing nga wala niya na ingon sa ako was that you're ugly.",
-            "If maot ka, then there's no such thing as beauty in this world."
-        ]
-        return random.choice(responses)
-    
-    if any(word in text for word in ["char", "sure uy", "flattery", "liar", "botbot", "not true", "dili tinood",]):
-        responses = [
-            "I'm just being honest! I may be a bot, but I can still recognize beauty.",
-            "For real!!!!",
-            "Walay char char or unsan pana, sa tinood ra ta",
-            "Tinuoray lang, Gwapa bitaw kaayo ka, BUYAG!! is what my creator teach me when complimenting someone"
         ]
         return random.choice(responses)
     
@@ -235,7 +150,7 @@ def generate_markov_response(seed_text):
             "Masahion ta tika boss, para ma relax ka.",
         ]
         return random.choice(responses)
-  
+    
 
     # LEARNING MODE: "paksiw, learn [keyword] is [response]"
     learn_match = re.search(r"learn (.+) is (.+)", text)
