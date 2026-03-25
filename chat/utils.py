@@ -39,7 +39,7 @@ def generate_markov_response(seed_text):
         
     return " ".join(sentence) + "."
 
-def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None for now
+# def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None for now
     text = text.lower()
 
     # 1. KEYWORD: Greetings (Multiple Responses)
