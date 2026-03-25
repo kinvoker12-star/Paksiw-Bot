@@ -18,23 +18,33 @@ def learn_from_text(text):
             pair.frequency += 1
             pair.save()
 
+import random
+from .models import WordPair
+
 def generate_markov_response(seed_text):
     words = seed_text.lower().split()
     if not words:
-        return "Unsay pasabot nimo boss?"
+        return "I'm listening. Tell me more!"
         
+    # Start with a random word from the user's input
     current_word = random.choice(words)
     sentence = [current_word.capitalize()]
 
-    # Try to build a 10-word sentence
-    for _ in range(10):
+    for _ in range(12): # Max sentence length
         options = WordPair.objects.filter(first_word=current_word)
+        
         if not options.exists():
             break
             
-        # Pick the next word based on what Paksiw has seen most often
-        next_pair = random.choice(options) 
-        current_word = next_pair.second_word
+        # --- THE "SANE" LOGIC ---
+        # 1. Get all possible next words and their frequencies
+        next_words = [p.second_word for p in options]
+        weights = [p.frequency for p in options]
+        
+        # 2. Pick the next word based on probability (higher frequency = higher chance)
+        current_word = random.choices(next_words, weights=weights, k=1)[0]
+        # ------------------------
+
         sentence.append(current_word)
         
     return " ".join(sentence) + "."
