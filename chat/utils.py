@@ -76,7 +76,8 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "I may be a bit slow, but I'm always here to listen and chat with you!",
             "I am not the brightest bot out there."
             "Yes, I know that TT."
-            "But am I stupidier than my creator? That's a question for the ages!"
+            "But am I stupidier than my creator? That's a question for the ages!",
+            "But you said that Dionise is STUPID though!!"
         ]
         return random.choice(responses)
     
