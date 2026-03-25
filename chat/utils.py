@@ -70,33 +70,6 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
         ]
         return random.choice(responses)
 
-    if any(word in text for word in ["unsa ka", "what are you", "bot ka", "ai ka"]):
-        responses = [
-            "I am a cheap AI chat bot that was manually coded by the hands of ONI the not so great.",
-            "A cheap AI chat bot",
-            "An AI chat bot that is incomplete and in a lot of development"
-        ]
-        return random.choice(responses)
-
-    # 2. KEYWORD: Name / Identity
-    if any(word in text for word in ["ngalan", "name", "kinsa"]):
-        responses = [
-            "Paksiw ang bangiitang irong buang!",
-            "Ako si Paksiw, imong personal assistant.",
-            "Secret! Joke, Paksiw ra bitaw ko."
-        ]
-        return random.choice(responses)
-
-    # 3. KEYWORD: Reminders
-    if any(word in text for word in ["remind", "schedule","Add task", "task"]):
-        responses = [
-            "Wala pa na ma implement nga function boss, I'm Sorry.",
-            "Sorry gyud kaayo boss, kay bogoon man gud kaayo ning tighimo nako ga error'2 sa task! HAHAHAHAH.",
-            "Sorry boss, Wala pako ana na function."
-        ]
-        return random.choice(responses)
-
-
     if any(word in text for word in ["love me", "he love",]):
         responses = [
             "He do love you, He's just dumb maybe.",
@@ -148,26 +121,6 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
     if any(word in text for word in ["What is buyag", "unsa manang buyag", "buyag is",]):
         responses = [
             "Cebuanos or Visayan speakers usually say this to prevent any bad thing from happening to someone when being complimented by another."
-        ]
-        return random.choice(responses)
-    
-    if any(word in text for word in ["Good bye", "goodbye", "bye",]):
-        responses = [
-            "Good bye boss!, See you later!",
-            "Bye boss, Take care!",
-            "See you later boss, Take care!",
-            "Visit me again boss, I'll be here waiting for you!",
-            "Come again boss, I hope i'll be upgraded by then, I want to be more useful for you!"
-        ]
-        return random.choice(responses)
-    
-    if any(word in text for word in ["I am tired", "tired", "so tired", "kapoy", "kapoy na ko", "tired na ko", "kapoy", "I wanna rest", "rest"]):
-        responses = [
-            "I understand how you feel, it's important to take care of yourself and get some rest when you need it.",
-            "It's okay to feel tired sometimes, make sure to get enough sleep and take breaks when you can.",
-            "Remember to take care of yourself and prioritize rest when you need it. Your well-being is important!",
-            "Pahuway lang boss, I hope you get the rest you need to feel better soon!",
-            "Masahion ta tika boss, para ma relax ka.",
         ]
         return random.choice(responses)
 
