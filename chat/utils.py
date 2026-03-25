@@ -14,6 +14,15 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "O, kumusta man ka human?"
         ]
         return random.choice(responses)
+    
+    if any(word in text for word in ["who made you", "who created you", "who is your creator"]):
+        responses = [
+            "I was created by ONI, a not so great programmer, but he made me for you!",
+            "ONI is the one who made me, he's not the best coder but he did his best to make me for you!",
+            "My creator is ONI, he's not the best programmer but he made me for you!",
+            "Oni is the one who made me!"
+        ]
+        return random.choice(responses)
 
     if any(word in text for word in ["unsa ka", "what are you", "bot ka", "ai ka"]):
         responses = [
@@ -23,7 +32,7 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
         ]
         return random.choice(responses)
     
-    if any (word in text for word in ["purpose","gamit", "exist", "made"]):
+    if any (word in text for word in ["purpose","gamit", "exist", " you made"]):
         responses = [
             "Ang akoang purpose is ang maghatag sa imohag kalingawan ug mag remind sa imohang schedule!."
             "Ni exist si Paksiw for you!"
@@ -50,7 +59,7 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
         return random.choice(responses)
 
 
-    if any(word in text for word in ["love me", "love",]):
+    if any(word in text for word in ["love me", "he love",]):
         responses = [
             "He do love you, He's just dumb maybe.",
             "He's kinda of a fool, but he does love you",
@@ -58,13 +67,34 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "He made me, He does :)"
         ]
         return random.choice(responses)
+
+    if any(word in text for word in ["Dumb", "Stupid", "idiot", "baka", "gago", "tanga","bogo"]):
+        responses = [
+            "I'm sorry about that hehe.",
+            "I'm still on my early phase of development, but I'm learning and improving every day!",
+            "I may not be the smartest bot out there, but I'm doing my best to be helpful and entertaining for you!",
+            "I may be a bit slow, but I'm always here to listen and chat with you!",
+            "I am not the brightest bot out there."
+            "Yes, I know that TT."
+            "But am I stupidier than my creator? That's a question for the ages!"
+        ]
+        return random.choice(responses)
+    
+    if "love"   in text:
+        responses = [
+            "Love is a beautiful thing! It's great to feel loved and to love others.",
+            "Love can be complicated, but it's also one of the most rewarding experiences in life.",
+            "Love is a powerful emotion that can bring people together and create strong bonds.",
+            "Love is not just a feeling, it's also an action. Show love to those around you!"
+        ]
+        return random.choice(responses)
     
     if any(word in text for word in ["mangutana", "ngutana", "ask ko", "gi ingani", "nganong na buhat"]):
         responses = [
-            "You can share anything you want diri sa akoa.",
-            "Rant lang diri sa akoa, atoa pa siyang e bash HAHHAHAHAHAHA",
-            "Kinsay gabuhat ani nimo?, ang ga himo sa akoa? tsk tsk tsk tung tawhana to!",
-            "rant lang rant, maminaw ra ko"
+            "You can ask me anything you want, I'm here to help!",
+            "Feel free to ask me anything, I'm here to assist you!",
+            "Ask away! I'm here to provide you with information and support.",
+            "Please do!",
         ]
         return random.choice(responses)
     
