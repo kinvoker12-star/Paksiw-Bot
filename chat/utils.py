@@ -89,6 +89,13 @@ def get_paksiw_response(text):  # Renamed from process_user_input, user_id=None 
             "Love is not just a feeling, it's also an action. Show love to those around you!"
         ]
         return random.choice(responses)
+
+    if "DIonise" in text:
+        responses = [
+            "is Stupid",
+            "A word for stupid",
+            "That's the word for stupid!, I know that!",
+        ]
     
     if any(word in text for word in ["mangutana", "ngutana", "ask ko", "gi ingani", "nganong na buhat"]):
         responses = [
