@@ -134,34 +134,58 @@ function handleKeyPress(e) {
     if (e.key === 'Enter') sendMessage();
 }
 
+// Function to get the CSRF token from Django's cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 function sendMessage() {
-    let msgInput = document.getElementById('user-msg');
-    let msg = msgInput.value.trim();
-    let chatWindow = document.getElementById('chat-window');
+    const msgInput = document.getElementById('user-msg');
+    const msg = msgInput.value.trim();
+    const chatWindow = document.getElementById('chat-window');
 
     if (msg === "") return;
 
-    // Add User Message
+    // 1. Add User Message to UI
     chatWindow.innerHTML += `<div class="msg user-msg"><b>You:</b> ${msg}</div>`;
-    msgInput.value = '';
     
-    // Auto-scroll to bottom
+    // Clear input and scroll
+    msgInput.value = '';
     chatWindow.scrollTop = chatWindow.scrollHeight;
 
+    // 2. Fetch with DYNAMIC CSRF Token
     fetch('/chat-api/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
+            // DO NOT hardcode the token string here. Use the function:
+            'X-CSRFToken': getCookie('csrftoken') 
         },
         body: JSON.stringify({ message: msg })
     })
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+    })
     .then(data => {
+        // 3. Add Paksiw's Response
         chatWindow.innerHTML += `<div class="msg paksiw-msg"><b>Paksiw:</b> ${data.reply}</div>`;
         chatWindow.scrollTop = chatWindow.scrollHeight;
     })
     .catch(err => {
-        chatWindow.innerHTML += `<div class="msg paksiw-msg" style="background:#fee2e2; color:#b91c1c;"><b>System:</b> Server error. Check your connection!</div>`;
+        console.error('Error:', err);
+        chatWindow.innerHTML += `<div class="msg paksiw-msg" style="color:red"><b>System:</b> Server error. Check Vercel logs!</div>`;
+        chatWindow.scrollTop = chatWindow.scrollHeight;
     });
 }
